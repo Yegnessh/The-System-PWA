@@ -1,11 +1,12 @@
 const CACHE = "the-system-v1";
 
 const ASSETS = [
-  "/",
-  "/index.html",
-  "/style.css",
-  "/app.js",
-  "/manifest.json"
+  "./",
+  "./index.html",
+  "./style.css",
+  "./app.js",
+  "./manifest.json",
+  "./icon.png"
 ];
 
 // Install — cache all assets
