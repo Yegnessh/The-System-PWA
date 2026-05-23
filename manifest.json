@@ -2,7 +2,7 @@
   "name": "The System",
   "short_name": "SYSTEM",
   "description": "Real life RPG habit tracker",
-  "start_url": "/",
+  "start_url": "/the-system-pwa/",
   "display": "standalone",
   "background_color": "#050510",
   "theme_color": "#3a6fff",
