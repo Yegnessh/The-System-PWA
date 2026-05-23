@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#3a6fff">
+  <title>THE SYSTEM</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="topbar">
+  <h1>⚡ THE SYSTEM</h1>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span id="topbar-rank" style="font-size:12px;color:#5a7aaf;letter-spacing:1px"></span>
+    <button class="sync-btn" onclick="showToast('Sync coming soon, Hunter.')">SYNC</button>
+  </div>
+</div>
+
+<!-- Pages -->
+<!-- PAGE 1: DAILY QUESTS -->
+<div id="page-quests" class="page">
+  <h2>⚔️ Daily Quests</h2>
+  <div id="quests-date" class="badge" style="margin-bottom:12px"></div>
+  <div id="quests-list"></div>
+</div>
+
+<!-- PAGE 2: STATUS WINDOW -->
+<div id="page-status" class="page">
+  <h2>📊 Status Window</h2>
+  <div id="status-content"></div>
+</div>
+
+<!-- PAGE 3: MISSION LOG -->
+<div id="page-log" class="page">
+  <h2>📝 Mission Log</h2>
+  <textarea id="log-entry" placeholder="Record your thoughts, Hunter..."></textarea>
+  <button class="btn" onclick="addLog()">⚡ SAVE LOG ENTRY</button>
+  <hr class="divider">
+  <h2>Previous Entries</h2>
+  <div id="logs-list"></div>
+</div>
+
+<!-- PAGE 4: ADD QUEST -->
+<div id="page-add" class="page">
+  <h2>➕ Add Quest</h2>
+
+  <!-- Tab Buttons -->
+  <div style="display:flex;gap:8px;margin-bottom:14px">
+    <button class="btn small tab-btn active"
+      onclick="switchTab('tab-templates',this)">📋 TEMPLATES</button>
+    <button class="btn small tab-btn"
+      onclick="switchTab('tab-custom',this)">✏️ CUSTOM</button>
+    <button class="btn small tab-btn"
+      onclick="switchTab('tab-manage',this)">⚙️ MANAGE</button>
+  </div>
+
+  <!-- Templates Tab -->
+  <div id="tab-templates" class="tab-content active">
+    <div id="templates-list"></div>
+  </div>
+
+  <!-- Custom Quest Tab -->
+  <div id="tab-custom" class="tab-content">
+    <label>QUEST NAME</label>
+    <input id="c-name" placeholder="e.g. Cold Shower">
+
+    <label>FREQUENCY</label>
+    <select id="c-freq">
+      <option>daily</option>
+      <option>weekly</option>
+      <option>monthly</option>
+      <option>yearly</option>
+    </select>
+
+    <label>DIFFICULTY</label>
+    <select id="c-diff">
+      <option>E</option><option>D</option><option>C</option>
+      <option>B</option><option>A</option><option>S</option>
+    </select>
+
+    <label>STAT</label>
+    <select id="c-stat">
+      <option>Strength</option>
+      <option>Intelligence</option>
+      <option>Endurance</option>
+      <option>Discipline</option>
+      <option>Perception</option>
+    </select>
+
+    <button class="btn" onclick="addCustomQuest()">⚡ CREATE QUEST</button>
+  </div>
+
+  <!-- Manage Tab -->
+  <div id="tab-manage" class="tab-content">
+    <div id="manage-list"></div>
+  </div>
+</div>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" data-page="page-quests" onclick="navigate('page-quests')">
+    <span>⚔️</span>QUESTS
+  </button>
+  <button class="nav-btn" data-page="page-status" onclick="navigate('page-status')">
+    <span>📊</span>STATUS
+  </button>
+  <button class="nav-btn" data-page="page-log" onclick="navigate('page-log')">
+    <span>📝</span>LOG
+  </button>
+  <button class="nav-btn" data-page="page-add" onclick="navigate('page-add')">
+    <span>➕</span>ADD
+  </button>
+</nav>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<!-- Quest Complete Popup -->
+<div id="popup-overlay" class="popup-overlay" onclick="closePopup()">
+  <div class="popup" onclick="event.stopPropagation()" id="popup-content"></div>
+</div>
+
+<!-- Tab + CSS for tabs -->
+<style>
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+  .tab-btn.active {
+    border-color:#7eb8ff !important;
+    color:#ffffff !important;
+    background:#0d1a3a !important;
+  }
+</style>
+
+<script src="app.js"></script>
+</body>
+</html>
