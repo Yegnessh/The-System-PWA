@@ -134,6 +134,20 @@
   }
 </style>
 
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/The-System-PWA/sw.js', {
+      scope: '/The-System-PWA/'
+    }).then(reg => {
+      console.log('SW registered:', reg.scope);
+      reg.update();
+    }).catch(err => {
+      console.log('SW failed:', err);
+    });
+  });
+}
+</script>
 <script src="app.js"></script>
 </body>
 </html>
