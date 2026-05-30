@@ -1,4 +1,4 @@
-const CACHE = "the-system-v2";
+const CACHE = "the-system-v3";
 
 const ASSETS = [
   "/The-System-PWA/",
@@ -9,27 +9,28 @@ const ASSETS = [
   "/The-System-PWA/icon.png"
 ];
 
-// Install — cache all assets
 self.addEventListener("install", e => {
   e.waitUntil(
-    caches.open(CACHE).then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE)
+      .then(cache => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
   );
 });
 
-// Activate — clean old caches
 self.addEventListener("activate", e => {
   e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-    )
+    caches.keys()
+      .then(keys => Promise.all(
+        keys.filter(k => k !== CACHE).map(k => caches.delete(k))
+      ))
+      .then(() => self.clients.claim())
   );
 });
 
-// Fetch — serve from cache, fall back to network
 self.addEventListener("fetch", e => {
   e.respondWith(
-    caches.match(e.request).then(cached => {
-      return cached || fetch(e.request).catch(() => cached);
-    })
+    caches.match(e.request)
+      .then(cached => cached || fetch(e.request)
+      .catch(() => caches.match("/The-System-PWA/index.html")))
   );
 });
