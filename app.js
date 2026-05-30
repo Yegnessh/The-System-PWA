@@ -565,11 +565,6 @@ function toggleExpander(header) {
 async function init() {
   await openDB();
 
-  // Register service worker
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js").catch(() => {});
-  }
-
   // Login bonus
   const bonus = await checkLoginBonus();
   if (bonus) {
